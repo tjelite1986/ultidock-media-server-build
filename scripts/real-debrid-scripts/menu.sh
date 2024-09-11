@@ -32,21 +32,21 @@ while :; do
   # Case statement to execute based on user choice
   case $choice in
   # Blackhole Symlinks
-    1)  ~/scripts/rds/blackhole.sh
+    1)  ./blackhole.sh
         echo -e "\e[1;32mSymlinks for Blackhole Radar are done.\e[0m";;
-    2)  ~/scripts/rds/import.sh
+    2)  ./import.sh
         echo -e "\e[1;32mSymlinks to Import Movies/Shows are done.\e[0m";;
   # REMOVE UNUSED MOVIES
-    3)  python3 ~/scripts/rds/discard_movies.py
+    3)  python3 discard_movies.py
         echo -e "\e[1;31mRemoves movies from Real-Debrid that do not have a symlink attached to them.\e[0m";;
   # REMOVE UNUSED SHOWS
-    4)  python3 ~/scripts/rds/discard_shows.py
+    4)  python3 discard_shows.py
         echo -e "\e[1;31mRemoves movies from Real-Debrid that do not have a symlink attached to them.\e[0m";;
   # CHECK BROKEN SYMLINKS
-    5)  ~/scripts/rds/broken.sh
+    5)  ./broken.sh
         echo -e "\e[1;31mCheck for broken symlinks done.\e[0m";;
   # Remove Broken Symlinks
-    6)  ~/scripts/rds/remove.sh
+    6)  ./remove.sh
         echo -e "\e[1;31mRemove broken symlinks done.\e[0m";;
   # Exit
     0)  echo -e "\e[1;33mQuitting...\e[0m"

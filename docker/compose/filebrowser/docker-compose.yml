@@ -1,0 +1,37 @@
+###############
+#             #
+# NOT FINNISH #
+#             #
+###############
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:s6 # hurlenko/filebrowser
+    container_name: filebrowser
+#    user: 1000:1000 # adjust to your needs
+    networks:
+      - docker_default
+    ports:
+      - 8080:80
+    volumes:
+      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/filebrowser/data:/data
+      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/filebrowser/config:/config
+      - /opt/config/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /opt/config/filebrowser/settings.json:/config/settings.json
+      - /opt/config:/data/docker/config
+      - /home/thomas/compose:/data/docker/composedir
+      - /mnt/storage:/data/storage
+      - /mnt/symlinks:/data/symlinks
+      - /mnt/zurg:/data/realdebrid
+      - /home/thomas:/data/home
+      - /mnt/docker-volumes:/data/docker/docker-volumes
+    environment:
+      - FB_BASEURL=/filebrowser
+      - PUID=1000
+      - PGID=1000
+      # - FB_DATABASE=/opt/config/filebrowser/database/database.db
+      # - FB_CONFIG=/opt/config/filebrowser/settings.json:/config/settings.json
+    restart: unless-stopped
+networks:
+  docker_default:
+    external: true
+

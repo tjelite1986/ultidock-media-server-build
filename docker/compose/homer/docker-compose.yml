@@ -1,0 +1,25 @@
+services:
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    hostname: homer
+    networks:
+      - traefik_default
+    ports:
+      - 8080/tcp
+    environment:
+      - UID=1000
+      - GID=1000
+    volumes:
+      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/homer:/www/assets
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_default
+      - traefik.http.routers.homer.entrypoints=websecure
+      - traefik.http.routers.homer.rule=Host(`homer.domain.com`)
+      - traefik.http.services.homer.loadbalancer.server.port=8080
+
+networks:
+  traefik_default:
+    external: true

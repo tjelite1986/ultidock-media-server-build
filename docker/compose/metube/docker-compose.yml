@@ -1,0 +1,32 @@
+services:
+  metube:
+    container_name: metube
+    hostname: metube
+    image: ghcr.io/alexta69/metube
+    networks:
+      - traefik_default
+    ports:
+      - 8081/tcp
+    environment:
+      PUID: '1000'
+      PGID: '1000'
+      TZ: 'Europe/Stockholm'
+      UMASK: '002'
+      DARK_MODE: 'true'
+      DOWNLOAD_DIR: '/data'
+      AUDIO_DOWNLOAD_DIR: '/data/mp3'
+    volumes:
+      - /mnt/downloads/metube:/data
+      - /opt/appdata/metube:/config
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_default
+      - traefik.http.routers.metube.entrypoints=websecure
+      - traefik.http.routers.metube.rule=Host(`tube.domain.win`)
+      - traefik.http.services.metube.loadbalancer.server.port=8081
+
+networks:
+  traefik_default:
+    external: true
+

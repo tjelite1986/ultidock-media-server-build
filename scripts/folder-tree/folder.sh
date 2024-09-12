@@ -3,6 +3,7 @@ DIR=/mnt
 SYMDIR=/mnt/symlinks/blackhole
 LIBDIR=/mnt/plex
 ZURGDIR=/mnt/zurg
+DOWNDIR=/mnt/downloads
 
 ##############################
 # Create Symlink Path        #
@@ -42,4 +43,16 @@ if [ ! -d "$ZURGDIR" ]; then
     echo "Directory $ZURGDIR created."
 else
     echo "Directory $ZURGDIR already exists."
+fi
+
+########################
+## Downloads Directory #
+########################
+if [ ! -d "$DOWNDIR" ]; then
+    mkdir -p "$DOWNDIR" && mkdir -p "$DOWNDIR/metube" && mkdir -p "$DOWNDIR/metube/mp3"
+    echo "Directory $DOWNDIR created."
+    echo "Directory $DOWNDIR/metube created."
+    echo "Directory $DOWNDIR/metube/mp3 created."
+else
+    echo "Directory $DOWNDIR already exists."
 fi
